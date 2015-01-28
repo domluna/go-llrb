@@ -11,4 +11,4 @@ LLRB trees. The following implementation is largely dervied from these notes.
 
 Red Black Trees (RBT) are a self balancing binary tree, therefore all operations are O(log n). 2-3 LLRB Trees have the nice benefit that the height is at most 2 * logn. From my experiments it's ~1.5 * logn.
 
-Due to the sorted property, BBST can/are used to implement various data structures. These includes TreeMaps, Queues, etc.
+Due to the sorted property, BBST can/are used to implement various data structures. These include TreeMaps, Queues, etc.
