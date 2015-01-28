@@ -15,6 +15,9 @@
 // Current operations:
 //  Max, Min, DeleteMin, DeleteMax, Get, Insert, Delete
 //
+// TODO:
+//  Rank, Select, Range Search
+//
 package llrb
 
 // Color specifies the color of a node.
