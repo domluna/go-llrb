@@ -7,12 +7,19 @@ import (
 	llrb "github.com/domluna/go-llrb"
 )
 
+// IntKey is an int that satisfies the Key interface.
+type IntKey int
+
+func (k IntKey) Less(a llrb.Key) bool {
+	return k < a.(IntKey)
+}
+
 func TestBasics(t *testing.T) {
 	tree := llrb.New()
 
-	v := tree.Get(llrb.IntKey(5))
+	v := tree.Get(IntKey(5))
 	if v != nil {
-		t.Errorf("Get(llrb.IntKey(5)): got %v, want nil", v)
+		t.Errorf("Get(IntKey(5)): got %v, want nil", v)
 	}
 
 	v = tree.Max()
@@ -24,28 +31,28 @@ func TestBasics(t *testing.T) {
 		t.Errorf("Min(): got %v, want nil", v)
 	}
 
-	tree.Insert(llrb.IntKey(10), "root")
-	tree.Insert(llrb.IntKey(5), "min")
-	tree.Insert(llrb.IntKey(15), "max")
+	tree.Insert(IntKey(10), "root")
+	tree.Insert(IntKey(5), "min")
+	tree.Insert(IntKey(15), "max")
 
 	max := tree.Max()
-	if max != llrb.IntKey(15) {
+	if max != IntKey(15) {
 		t.Errorf("Max(): got %v, want %v", max, 15)
 	}
 	min := tree.Min()
-	if min != llrb.IntKey(5) {
+	if min != IntKey(5) {
 		t.Errorf("Min(): got %v, want %v", min, 5)
 	}
 
 	tree.DeleteMin()
 	min = tree.Min()
-	if min != llrb.IntKey(10) {
+	if min != IntKey(10) {
 		t.Errorf("DeleteMin(): got %v, want %v", min, 10)
 	}
 
 	tree.DeleteMax()
 	max = tree.Max()
-	if max != llrb.IntKey(10) {
+	if max != IntKey(10) {
 		t.Errorf("DeleteMax(): got %v, want %v", max, 10)
 	}
 
@@ -71,11 +78,11 @@ func TestInsertAndGet(t *testing.T) {
 	keys := rand.Perm(nNodes)
 
 	for _, k := range keys {
-		tree.Insert(llrb.IntKey(k), k)
+		tree.Insert(IntKey(k), k)
 	}
 
 	for _, k := range keys {
-		if v := tree.Get(llrb.IntKey(k)); v == nil {
+		if v := tree.Get(IntKey(k)); v == nil {
 			t.Errorf("Get: %v, got %v, want %v", k, nil, k)
 		}
 	}
@@ -88,7 +95,7 @@ func TestHeight(t *testing.T) {
 
 	for i := 0; i < nNodes; i++ {
 		n := rand.Int()
-		tree.Insert(llrb.IntKey(n), n)
+		tree.Insert(IntKey(n), n)
 	}
 
 	h := tree.Height()
@@ -98,13 +105,12 @@ func TestHeight(t *testing.T) {
 }
 
 func TestDelete(t *testing.T) {
-	// t.Skip()
 	tree := llrb.New()
 	nNodes := 1 << 16
 	keys := rand.Perm(nNodes)
 
 	for _, k := range keys {
-		tree.Insert(llrb.IntKey(k), k)
+		tree.Insert(IntKey(k), k)
 	}
 
 	l := tree.Len()
@@ -114,7 +120,7 @@ func TestDelete(t *testing.T) {
 
 	// Delete
 	for _, k := range keys {
-		tree.Delete(llrb.IntKey(k))
+		tree.Delete(IntKey(k))
 	}
 
 	l = tree.Len()
@@ -123,5 +129,5 @@ func TestDelete(t *testing.T) {
 	}
 
 	// Delete again for good measure
-	tree.Delete(llrb.IntKey(10))
+	tree.Delete(IntKey(10))
 }

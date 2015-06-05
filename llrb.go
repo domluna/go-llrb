@@ -34,7 +34,7 @@ const (
 // method defined.
 type Key interface {
 	// Less returns true is a < the receiver element.
-	Less(a interface{}) bool
+	Less(Key) bool
 }
 
 // Value of a Node.
