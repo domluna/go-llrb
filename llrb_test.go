@@ -4,7 +4,7 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/domluna/go-llrb"
+	llrb "github.com/domluna/go-llrb"
 )
 
 func TestBasics(t *testing.T) {

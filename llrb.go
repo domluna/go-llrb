@@ -29,6 +29,9 @@ const (
 )
 
 // Key of a Node.
+// Anything stored in the LLRB has be comparable.
+// Thus a Key is anything that implements the Less
+// method defined.
 type Key interface {
 	// Less returns true is a < the receiver element.
 	Less(a interface{}) bool
@@ -259,7 +262,7 @@ func deleteMin(n *Node) *Node {
 	return fixUp(n)
 }
 
-// DeleteMax deletes the minimum element of the Tree
+// DeleteMax deletes the minimum element of the Tree.
 func (t *Tree) DeleteMax() {
 	t.root = deleteMax(t.root)
 	if t.root != nil {
